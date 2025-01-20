@@ -1,30 +1,39 @@
 import java.io.*;
-import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        String rtn = "NO";
+        
+        // 4개의 과일을 인덱스로 매핑
+        int[] fruitCounts = new int[4];
+        String[] fruits = {"STRAWBERRY", "BANANA", "LIME", "PLUM"};
         
         int n = Integer.parseInt(br.readLine());
         
-        for(int i=0; i<n; i++) {
+        for (int i = 0; i < n; i++) {
             String[] s = br.readLine().split(" ");
-            if(map.containsKey(s[0])) {
-                map.put(s[0], map.get(s[0])+Integer.parseInt(s[1]));
-            } else {
-                map.put(s[0], Integer.parseInt(s[1]));
+            String fruit = s[0];
+            int count = Integer.parseInt(s[1]);
+            
+            // 과일 이름에 따라 배열 인덱스에 값 추가
+            for (int j = 0; j < 4; j++) {
+                if (fruit.equals(fruits[j])) {
+                    fruitCounts[j] += count;
+                    break;
+                }
             }
         }
         
-        for(Map.Entry<String, Integer> m : map.entrySet()) {
-            if (m.getValue() == 5) {
-                rtn = "YES";
+        // 5개가 있는지 확인
+        for (int count : fruitCounts) {
+            if (count == 5) {
+                System.out.println("YES");
+                br.close();
+                return;
             }
         }
         
-        System.out.println(rtn);
+        System.out.println("NO");
         br.close();
     }
 }

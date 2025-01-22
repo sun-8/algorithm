@@ -15,7 +15,7 @@ public class Main {
         }
         
         for(int i=0; i<n; i++) {
-            if (!hs.contains(ingredient[i])) {
+            if (!hs.remove(ingredient[i])) {
                 System.out.println(ingredient[i]);
                 br.close();
                 return;

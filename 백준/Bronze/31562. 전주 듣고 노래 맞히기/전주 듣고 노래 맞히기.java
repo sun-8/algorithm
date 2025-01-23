@@ -5,24 +5,33 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Map<String, String> map = new HashMap<>();
+        StringTokenizer st = new StringTokenizer(br.readLine());
         
-        // song[0] : 음을 아는 노래의 개수 , song[1] : 노래 문제 개수
-        String[] song = br.readLine().split(" ");
+        int n = Integer.parseInt(st.nextToken()); // 알고있는 노래 개수
+        int m = Integer.parseInt(st.nextToken()); // 문제 풀제 개수
         
         // 음을 아는 노래 저장
-        for (int i=0; i<Integer.parseInt(song[0]); i++) {
-            // s[0] : 노래 문자열 개수 , s[1] : 노래 제목 , s[2]~ : 노래의 음이름
-            String[] s = br.readLine().split(" ");
-            // value 중복 체크
-            if (map.containsKey(s[2]+s[3]+s[4])) {
-                map.put(s[2]+s[3]+s[4], "?");
+        for (int i=0; i<n; i++) {
+            st = new StringTokenizer(br.readLine());
+            st.nextToken(); // 노래 제목 문자열 개수
+            String title = st.nextToken(); // 노래 제목
+            
+            StringBuilder sb = new StringBuilder();
+            for(int j=0; j<3; j++) {
+                sb.append(st.nextToken());
+            }
+            String melody = sb.toString(); // 노래 첫 세 음
+            
+            if (map.containsKey(melody)) {
+                // 같은 음이 두 개 이상이라는 의미 => "?" 저장
+                map.put(melody, "?");
             } else {
-                map.put(s[2]+s[3]+s[4], s[1]);
+                map.put(melody, title);
             }
         }
         
         // 노래 문제 출제
-        for (int i=0; i<Integer.parseInt(song[1]); i++) {
+        for (int i=0; i<m; i++) {
             String s = br.readLine().replace(" ","");
             // 문제 맞추기
             if (map.containsKey(s)) {

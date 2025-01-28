@@ -14,27 +14,23 @@ public class Main {
         String[] sArr = br.readLine().split(" ");
         int one = 0, two = 0, three = 0, max = 0;
         
-        for(int i=0; i<n; i++) {
+        for(int i=0; i<n-2; i++) {
             // 첫번째 숫자
             one = Integer.parseInt(sArr[i]);
             
-            for(int j=0; j<n; j++) {
+            for(int j=i+1; j<n-1; j++) {
                 // 두번째 숫자
                 two = Integer.parseInt(sArr[j]);
-                if (one == two || one+two > m) {
-                    continue;
-                }
                 
-                for(int k=0; k<n; k++) {
+                for(int k=j+1; k<n; k++) {
                     // 세번째 숫자
                     three = Integer.parseInt(sArr[k]);
-                    if ((one == three || two == three) || one+two+three > m) {
-                        continue;
-                    }
-                    
-                    if (max < one+two+three && one+two+three <= m) {
+                    if (max < one+two+three && one+two+three < m) {
                         max = one+two+three;
-                    }
+                    } else if (one+two+three == m) {
+                        System.out.println(one+two+three);
+                        return;
+                    } 
                 }
             }
         }

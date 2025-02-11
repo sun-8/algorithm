@@ -5,10 +5,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        Deque<Integer> queue = new ArrayDeque<>();
         List<Integer> A = new ArrayList<>();
         List<Integer> B = new ArrayList<>();
-        List<Integer> C = new ArrayList<>();
+        Deque<int[]> queue = new ArrayDeque<>();
         
         int n = Integer.parseInt(br.readLine());
         
@@ -19,23 +18,22 @@ public class Main {
                 int student = Integer.parseInt(st.nextToken());
                 int menu = Integer.parseInt(st.nextToken());
                 
-                C.add(student);
-                queue.add(menu);
+                queue.add(new int[]{student, menu});
             } else {
                 int menu = Integer.parseInt(st.nextToken());
                 
-                if (C.size() > 0 && !queue.isEmpty()) {
-                    if(menu == queue.remove()) {
-                        A.add(C.get(0));
+                if (!queue.isEmpty()) {
+                    if(menu == queue.peek()[1]) {
+                        A.add(queue.poll()[0]);
                     } else {
-                        B.add(C.get(0));
+                        B.add(queue.poll()[0]);
                     }
-                    C.remove(0);
                 }
             }
         }
         
         // 출력
+        // A
         if (A.size() > 0) {
             A.sort((a,b) -> a.compareTo(b));
             for(Integer a : A) {
@@ -45,6 +43,7 @@ public class Main {
             sb.append("None");
         }
         sb.append("\n");
+        // B
         if (B.size() > 0) {
             B.sort((a,b) -> a.compareTo(b));
             for(Integer b : B) {
@@ -54,7 +53,12 @@ public class Main {
             sb.append("None");
         }
         sb.append("\n");
-        if (C.size() > 0) {
+        // C
+        if (queue.size() > 0) {
+            List<Integer> C = new ArrayList<>();
+            for(int[] i : queue) {
+                C.add(i[0]);
+            }
             C.sort((a,b) -> a.compareTo(b));
             for(Integer c : C) {
                 sb.append(c).append(" ");

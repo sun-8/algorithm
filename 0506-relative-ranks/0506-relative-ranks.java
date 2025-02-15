@@ -2,41 +2,32 @@ import java.util.*;
 
 class Solution {
     public String[] findRelativeRanks(int[] score) {
-        Queue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
-        String[] answer = new String[score.length];
+        int n = score.length;
+        int[] sCopy = new int[n];
+        
+        // score의 요소들을 sCopy배열에 복사
+        System.arraycopy(score, 0, sCopy, 0, n);
 
-        // score를 q에 담기
-        for(int i : score) {
-            q.add(i);
+        // 각 요소에 대한 인덱스를 map으로 저장
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0; i<n; i++) {
+            map.put(sCopy[i], i);
         }
 
-        // q가 비어있을 때 까지 반복.
-        // 그 안에 score 반복문을 통해 q의 top값과 score의 요소가 같으면 answer에 String으로 변환하여 순위 저장
-        int th = 1;
-        while(!q.isEmpty()) {
-            int e = q.poll();
-            for(int i=0; i<score.length; i++) {
-                if (e == score[i]) {
-                    answer[i] = String.valueOf(th);
-                    th++;
-                }
-            }
-        }
+        // sCopy 변수 오름차순 정렬
+        Arrays.sort(sCopy);
 
-        // 1, 2, 3위 설정
-        for(int i=0; i<answer.length; i++) {
-            boolean first = false;
-            boolean second = false;
-            boolean third = false;
-
-            if (answer[i].equals("1")) {
-                answer[i] = "Gold Medal";
-            } else if (answer[i].equals("2")) {
-                answer[i] = "Silver Medal";
-            } else if (answer[i].equals("3")) {
-                answer[i] = "Bronze Medal";
-            } else if (first && second && third) {
-                break;
+        // 순위 매기기
+        String[] answer = new String[n];
+        for(int i=0; i<n; i++) {
+            if (i == 0) {
+                answer[map.get(sCopy[n-i-1])] = "Gold Medal";
+            } else if (i == 1) {
+                answer[map.get(sCopy[n-i-1])] = "Silver Medal";
+            } else if (i == 2) {
+                answer[map.get(sCopy[n-i-1])] = "Bronze Medal";
+            } else {
+                answer[map.get(sCopy[n-i-1])] = Integer.toString(i+1);
             }
         }
 

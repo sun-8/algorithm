@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringBuilder sb = new StringBuilder();
         
         final int STUDENT_COUNT = 30;
         final int SUBMIT_ASSIGNMENT = 28;
@@ -18,13 +19,13 @@ public class Main {
         // 미제출자 탐색
         for(int i=1; i<=STUDENT_COUNT; i++) {
             if (map.get(i) == null) {
-                bw.write(String.valueOf(i));
-                bw.newLine();
-                bw.flush();
+                sb.append(i).append("\n");
             }
         }
         
         br.close();
+        bw.write(String.valueOf(sb));
+        bw.flush();
         bw.close();
     }
 }

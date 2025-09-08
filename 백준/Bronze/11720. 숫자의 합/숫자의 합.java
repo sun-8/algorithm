@@ -11,7 +11,7 @@ public class Main {
         int sum = 0;
         
         for(int i=0; i<n; i++) {
-            sum += Character.getNumericValue(s.charAt(i));
+            sum += s.charAt(i)-48;
         }
         bw.write(String.valueOf(sum));
         bw.flush();

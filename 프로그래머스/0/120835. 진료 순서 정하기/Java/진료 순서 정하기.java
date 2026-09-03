@@ -5,14 +5,12 @@ class Solution {
         int[] sortAscArr = Arrays.copyOf(emergency, emergency.length);
         Arrays.sort(sortAscArr);
         
-        outer:
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i=0; i<sortAscArr.length; i++) {
+            map.put(sortAscArr[i], sortAscArr.length-i);
+        }
         for(int i=0; i<emergency.length; i++) {
-            for(int j=0; j<sortAscArr.length; j++) {
-                if(emergency[i] == sortAscArr[j]) {
-                    emergency[i] = emergency.length-j;
-                    continue outer;
-                }
-            }
+            emergency[i] = map.get(emergency[i]);
         }
         return emergency;
     }

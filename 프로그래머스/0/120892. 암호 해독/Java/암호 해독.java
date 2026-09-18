@@ -2,10 +2,8 @@ class Solution {
     public String solution(String cipher, int code) {
         String answer = "";
         String[] cipherArr = cipher.split("");
-        for(int i=0; i<cipherArr.length; i++) {
-          if((i+1) % code == 0) {
-              answer += cipherArr[i];
-          }   
+        for(int i=code-1; i<cipherArr.length; i+=code) {
+          answer += cipherArr[i];
         }
         return answer;
     }

@@ -8,11 +8,10 @@ class Solution {
         for(String p : pArr) {
             if("+".equals(p)) {
                 continue;
-            } else if(-1 == p.indexOf("x")) {
+            } else if(!p.contains("x")) {
                 answer_num += Integer.parseInt(p);
             } else {
-                answer_x += "".equals(p.substring(0, p.indexOf("x"))) ? 
-                    1 : Integer.parseInt(p.substring(0, p.indexOf("x")));
+                answer_x += "x".equals(p) ? 1 : Integer.parseInt(p.replace("x", ""));
             }
         }
         

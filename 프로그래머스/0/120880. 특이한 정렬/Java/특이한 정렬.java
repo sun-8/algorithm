@@ -2,19 +2,18 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] numlist, int n) {
-        Integer[] arr = new Integer[numlist.length];
-        for(int i=0; i<arr.length; i++) {
-            arr[i] = numlist[i];
-        }
-        Arrays.sort(arr, (a, b) -> {
-            int da = Math.abs(a-n);
-            int db = Math.abs(b-n);
-            if(da != db) return da - db;
-            return b - a;
-        });
-        int[] answer = new int[arr.length];
+        int[] answer = numlist.clone();
+        
         for(int i=0; i<answer.length; i++) {
-            answer[i] = arr[i];
+            for(int j=i+1; j<answer.length; j++) {
+                int di = Math.abs(answer[i] - n);
+                int dj = Math.abs(answer[j] - n);
+                if(di > dj || di == dj && answer[i] < answer[j]) {
+                    int temp = answer[i];
+                    answer[i] = answer[j];
+                    answer[j] = temp;
+                }
+            }
         }
         return answer;
     }

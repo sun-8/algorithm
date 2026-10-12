@@ -1,13 +1,17 @@
 class Solution {
     public int solution(int a, int b) {
         int answer = 1;
-        int c = Math.min(a, b);
-        for(int i=2; i<=c; i++) {
-            while(a % i == 0 && b % i == 0) {
-                a = a/i;
-                b = b/i;
-            }
+        // 최대공약수 구하기 (유클리드 호제법)
+        int gcd = a;
+        int temp = b;
+        while(temp != 0) {
+            int r = gcd % temp;
+            gcd = temp;
+            temp = r;
         }
+        a = a / gcd;
+        b = b / gcd;
+        
         while(b > 1) {
             if(b % 2 == 0) b = b/2;
             else if(b % 5 == 0) b = b/5;

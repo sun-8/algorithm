@@ -2,33 +2,20 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] numlist, int n) {
-        int length = numlist.length;
-        int[] answer = new int[length];
-        for(int i=0; i<length; i++) {
-            answer[i] = Math.min(Math.abs(numlist[i]+n), Math.abs(numlist[i]-n));
+        Integer[] arr = new Integer[numlist.length];
+        for(int i=0; i<arr.length; i++) {
+            arr[i] = numlist[i];
         }
-        for(int i=0; i<length; i++) {
-            for(int j=i; j<length; j++) {
-                if(answer[i] > answer[j]) {
-                    int temp = numlist[i];
-                    numlist[i] = numlist[j];
-                    numlist[j] = temp;
-                    
-                    temp = answer[i];
-                    answer[i] = answer[j];
-                    answer[j] = temp;
-                }
-            }
+        Arrays.sort(arr, (a, b) -> {
+            int da = Math.abs(a-n);
+            int db = Math.abs(b-n);
+            if(da != db) return da - db;
+            return b - a;
+        });
+        int[] answer = new int[arr.length];
+        for(int i=0; i<answer.length; i++) {
+            answer[i] = arr[i];
         }
-        for(int i=0; i<length-1; i++) {
-            if(answer[i] == answer[i+1]) {
-                int max = Math.max(numlist[i], numlist[i+1]);
-                int min = Math.min(numlist[i], numlist[i+1]);
-                numlist[i] = max;
-                numlist[i+1] = min;
-            }
-        }
-        
-        return numlist;
+        return answer;
     }
 }
